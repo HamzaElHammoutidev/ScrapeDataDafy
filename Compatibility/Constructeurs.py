@@ -217,8 +217,10 @@ with open("data/dataCategoryMoto.json", "w", encoding="utf-8") as jsonfile:
     json.dump(constructeursCategoryMotosLinks, jsonfile, ensure_ascii=False)
 getProductData()
 print("Categories Fetched!!")
-
-
+print("Fetching Products...")
+with open("data/dataCategoryMoto.json", "w", encoding="utf-8") as jsonfile:
+    json.dump(constructeursCategoryMotosDataLinks, jsonfile, ensure_ascii=False)
+print("Products Fetched!!")
 
 
 
