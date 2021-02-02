@@ -98,7 +98,7 @@ List : constructeur, type, moto, year, link
 """
 def getMotosByYear():
     global constructeursYearsMotosTypesLinks
-    jsonfile = open("dataMotoType.json", "r", encoding="utf-8")
+    jsonfile = open("data/dataMotoType.json", "r", encoding="utf-8")
     typesMotosData  = json.load(jsonfile)  # Read Data
     for moto in typesMotosData:
         req = requests.get(mainWebsite+moto["link-moto"])
@@ -125,7 +125,7 @@ List : Constructeur, Type, Moto, Year, Link, Category, Category-Link
 """
 def getCategoryMoto():
     global constructeursCategoryMotosLinks
-    jsonfile = open("cleaned-data.json", "r", encoding="utf-8")
+    jsonfile = open("data/dataMotoTypeYear.json", "r", encoding="utf-8")
     typesMotosData = json.load(jsonfile)  # Read Data
     for moto in typesMotosData:
         req = requests.get(mainWebsite+moto["year-link"])
@@ -153,7 +153,7 @@ List : Constructeur, Type, Moto , Year, Link, Category, Porduit, Produit-link
 """
 def getProductData():
     global constructeursCategoryMotosDataLinks
-    jsonfile = open("dataCategoryMoto.json", "r", encoding="utf-8")
+    jsonfile = open("data/dataCategoryMoto.json", "r", encoding="utf-8")
     categoryMotodata = json.load(jsonfile)  # Read Data
     for moto in categoryMotodata:
         try:
@@ -190,24 +190,33 @@ def getProductData():
         #req = requests.get(mainWebsite+moto["category-link"])
         #soup = BeautifulSoup(req.text, "html.parser")
 
+print("Fetching links...")
 getContrsucteurLinks()
 print(constructeursLinks)
+print("Links fetched!!")
+print("Fetching types ...")
 getConstructeurTypes()
 print(json.dumps(constructeursTypesLinks))
+print("Types fetched!")
+print("Fetching Motos ...")
 getMotosbyType()
-with open("dataMotoType.json", "w", encoding="utf-8") as jsonfile:
+with open("data/dataMotoType.json", "w", encoding="utf-8") as jsonfile:
     json.dump(constructeursMotosTypesLinks, jsonfile, ensure_ascii=False)
 print(json.dumps(constructeursMotosTypesLinks))
+print("Motos Fetched!!")
+print("Fetching Years ...")
 getMotosByYear()
 print("-------")
 print(json.dumps(constructeursYearsMotosTypesLinks))
-with open("dataMotoTypeYear.json", "w", encoding="utf-8") as jsonfile:
+print("Years Fetched!!")
+with open("data/dataMotoTypeYear.json", "w", encoding="utf-8") as jsonfile:
     json.dump(constructeursYearsMotosTypesLinks, jsonfile, ensure_ascii=False)
+print("Fetching Categories...")
 getCategoryMoto()
-with open("dataCategoryMoto.json", "w", encoding="utf-8") as jsonfile:
+with open("data/dataCategoryMoto.json", "w", encoding="utf-8") as jsonfile:
     json.dump(constructeursCategoryMotosLinks, jsonfile, ensure_ascii=False)
 getProductData()
-
+print("Categories Fetched!!")
 
 
 
